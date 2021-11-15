@@ -1,3 +1,4 @@
+// Following guide: https://discordjs.guide/creating-your-bot/command-handling.html#individual-command-files
 // Require the necessary discord.js classes
 const { Client, Intents } = require('discord.js');
 //const { token } = require('./config.json');
