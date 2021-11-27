@@ -33,11 +33,8 @@ for (const file of eventFiles) {
 	} else {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
+	console.log(`event ${event.name} loaded`);
 }
-
-client.on('messageReactionAdd', async (reaction, user) => {
-	console.log('messageReactionAdd');
-});
 
 // Login to Discord with your client's token
 client.login(process.env.DISCORD_TOKEN);
