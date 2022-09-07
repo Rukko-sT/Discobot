@@ -1,17 +1,20 @@
 const fs = require('fs');
 // Require the necessary discord.js classes
 const { Client, Collection, Intents } = require('discord.js');
-require('dotenv').config()
+require('dotenv').config();
+
+const intent = new Intents();
+intent.add();
 
 // Create a new client instance
 const client = new Client(
-	{ 
+	{
 		intents: [
 			Intents.FLAGS.GUILDS,
 			Intents.FLAGS.GUILD_MESSAGES,
-			Intents.FLAGS.GUILD_MESSAGE_REACTIONS
-		] 
-	}
+			Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+		],
+	},
 );
 
 client.commands = new Collection();
@@ -37,13 +40,13 @@ for (const file of eventFiles) {
 }
 
 // Login to Discord with your client's token
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN).catch(console.error);
 
 
 // Invite link at :
 const linkBase = 'https://discord.com/api/oauth2/authorize';
-const linkCLientId = `?client_id=${process.env.clientId}`;
-const linkPermission = `&permissions=544924499008`;
-const linkRemaining = `&scope=bot%20applications.commands`;
-const fullDiscordlinkInvite = linkBase+linkCLientId+linkPermission+linkRemaining;
-console.log(`Discord invite at ${fullDiscordlinkInvite}`);
+const linkClientId = `?client_id=${process.env.clientId}`;
+const linkPermission = '&permissions=8';
+const linkRemaining = '&scope=bot%20applications.commands';
+const fullDiscordLinkInvite = linkBase + linkClientId + linkPermission + linkRemaining;
+console.log(`Discord invite at ${fullDiscordLinkInvite}`);

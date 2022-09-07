@@ -1,7 +1,7 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
-require('dotenv').config()
+require('dotenv').config();
 
 const commands = [];
 const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
@@ -20,8 +20,8 @@ const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 		await rest.put(
 			Routes.applicationGuildCommands(process.env.clientId, process.env.guild),
 			{
-				body: commands
-			}
+				body: commands,
+			},
 		);
 
 		console.log('Successfully reloaded application (/) commands.');

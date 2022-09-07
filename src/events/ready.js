@@ -1,11 +1,11 @@
-const { Client, GuildChannel, ThreadChannel } = require("discord.js");
+const { GuildChannel, ThreadChannel } = require('discord.js');
 
 module.exports = {
 	name: 'ready',
 	once: true,
 	/**
-	 * 
-	 * @param {Client} client 
+	 *
+	 * @param {Client} client
 	 */
 	async execute(client) {
 		const startTime = Date.now();
@@ -13,10 +13,11 @@ module.exports = {
 		await client.guilds.fetch();
 		console.log(`Connected to ${client.guilds.cache.size} guilds`);
 		// Reading cache to load previous message send
-		for (const [key, guild] of client.guilds.cache.entries()) {
-			console.log(`Fetching ${guild.name} channels`);
+		for (const [guild] of client.guilds.cache.entries()) {
+			console.log(`Fetching ${guild.name} guild`);
+			// await guild.mermbers.fetch();
 			await guild.channels.fetch();
-			for (const [key, guildChannel] of guild.channels.cache.entries()) {
+			for (const [guildChannel] of guild.channels.cache.entries()) {
 				if (guildChannel instanceof GuildChannel) {
 					if (guildChannel.isText()) {
 						console.log(`Fetching ${guild.name} -> ${guildChannel.name} channels`);
@@ -25,14 +26,12 @@ module.exports = {
 						console.log(`Unknow type ${guildChannel.type}`);
 					}
 				} else if (guildChannel instanceof ThreadChannel) {
-					console.log(`TODO: Thread channel`);
+					console.log('TODO: Thread channel');
 				} else {
-					console.log(`Unknow guildChannel type`);
+					console.log('Unknow guildChannel type');
 				}
-				
 			}
 		}
-
-		console.log(`Bot loaded in ${Date.now()-startTime}ms`);
+		console.log(`Bot loaded in ${Date.now() - startTime}ms`);
 	},
 };
